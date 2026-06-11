@@ -1,0 +1,50 @@
+# =============================================================================
+# application-local.yml.example
+# -----------------------------------------------------------------------------
+# 실제 운영 설정(application-local.yml)은 .gitignore 처리되어 저장소에 없습니다.
+# 이 파일을 복사해 값을 채워 사용하세요:
+#
+#   cp application-local.yml.example application-local.yml
+#
+# 활성 프로필: local  (run-backend.sh / systemd 에서 --spring.profiles.active=local)
+# =============================================================================
+
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/meeting?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+    username: "CHANGE_ME"
+    password: "CHANGE_ME"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+
+# HLS 라이브 스트리밍 (시청자 플레이어가 바라보는 엣지)
+hls:
+  base-url: "https://hls.example.com"
+  default-stream-key: "stream"
+  path-template: "/live/{streamKey}/playlist.m3u8"
+
+# NICE 본인인증 (실명 확인) — 발급받은 연동 정보 입력
+nice:
+  enabled: false
+  api-base-url: "https://auth.niceid.co.kr"
+  client-id: "CHANGE_ME"
+  client-secret: "CHANGE_ME"
+  return-url: "https://meeting.example.com/api/nice/return"
+  close-url: "https://meeting.example.com/api/nice/close"
+
+# 파트너 DB (조합원 명부 대조 — 휴대폰 매칭)
+partner-db:
+  enabled: false
+  jdbc-url: "jdbc:mysql://localhost:3306/partner?serverTimezone=Asia/Seoul"
+  username: "CHANGE_ME"
+  password: "CHANGE_ME"
+  require-phone-match: true
+
+# Wowza Streaming Engine REST API (시청자 통계 조회)
+wowza:
+  rest:
+    base-url: "http://127.0.0.1:8087/v2"
+    server-name: "_defaultServer_"
+    vhost-name: "_defaultVHost_"
+    app-name: "live"
+    username: "CHANGE_ME"
+    password: "CHANGE_ME"

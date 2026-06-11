@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Keep native UI (scrollbars, form controls) aligned with the light theme. */
+  color-scheme: light;
+
+  /* Subtle, theme-friendly scrollbar colors (used by Firefox and as a base for WebKit). */
+  --scrollbar-track: rgba(148, 163, 184, 0.18); /* slate-400 @ ~18% */
+  --scrollbar-thumb: rgba(100, 116, 139, 0.55); /* slate-500 @ ~55% */
+  --scrollbar-thumb-hover: rgba(100, 116, 139, 0.75);
+  --scrollbar-thumb-active: rgba(51, 65, 85, 0.75); /* slate-700 @ ~75% */
+}
+
+body {
+  font-family: "Space Grotesk", "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+/* Scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-active);
+}
+
+/* Fullscreen layout: expand wrapper/video and keep overlay aligned. */
+.player-wrap:fullscreen,
+.player-wrap:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #000;
+}
+
+.player-wrap.is-immersive {
+  position: fixed;
+  inset: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 50;
+  border-radius: 0;
+}
+
+.player-wrap:fullscreen .player-video,
+.player-wrap:-webkit-full-screen .player-video {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+
+.player-wrap:fullscreen .chat-overlay,
+.player-wrap:-webkit-full-screen .chat-overlay {
+  width: 360px;
+  height: 420px;
+  max-width: 85vw;
+}
+
+.player-wrap.is-immersive .chat-overlay {
+  width: min(92vw, 360px);
+  height: 320px;
+  max-width: 92vw;
+  max-height: calc(100vh - 120px);
+}
+
+.chat-overlay {
+  width: 280px;
+  height: 360px;
+  max-height: calc(100% - 56px);
+}
+
+@media (max-width: 640px) {
+  .chat-overlay {
+    width: min(92vw, 320px);
+    height: 240px;
+    max-height: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  .player-wrap:fullscreen .chat-overlay,
+  .player-wrap:-webkit-full-screen .chat-overlay {
+    width: min(92vw, 360px);
+    height: 320px;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .fade-in {
+    animation: fade-in 0.7s ease-out both;
+  }
+
+  .rise-in {
+    animation: rise-in 0.6s ease-out both;
+  }
+}

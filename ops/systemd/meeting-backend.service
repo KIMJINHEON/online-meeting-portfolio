@@ -1,0 +1,23 @@
+[Unit]
+Description=Online Meeting Backend (Spring Boot)
+After=network-online.target mysqld.service WowzaStreamingEngine.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/meeting/backend
+
+# Keep secrets out of git. This is the same .env you already use in shells.
+EnvironmentFile=/opt/meeting/.env
+
+# Use the exact JDK 21 path to avoid relying on PATH/JAVA_HOME.
+ExecStart=/usr/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.x86_64/bin/java -jar /opt/meeting/backend/target/hls-backend-0.1.0.jar --spring.profiles.active=local
+
+Restart=always
+RestartSec=3
+TimeoutStopSec=20
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+

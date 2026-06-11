@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+hls:
+  base-url: ""
+  default-stream-key: "stream"
+  path-template: "/live/{streamKey}/playlist.m3u8"
+  playback-query: ""
+  default-url: ""
+
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: "${DB_HIKARI_MAX_POOL_SIZE:60}"
+      minimum-idle: "${DB_HIKARI_MIN_IDLE:10}"
+      connection-timeout: "${DB_HIKARI_CONNECTION_TIMEOUT_MS:5000}"
+      validation-timeout: "${DB_HIKARI_VALIDATION_TIMEOUT_MS:2000}"
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+audio:
+  storage-path: "${AUDIO_STORAGE_PATH:/opt/meeting/storage/audio}"
+  max-bytes: "${AUDIO_MAX_BYTES:52428800}"
+
+chat:
+  message:
+    min-interval-ms: "${CHAT_MESSAGE_MIN_INTERVAL_MS:10000}"
+  allowed-stream-keys: "${CHAT_ALLOWED_STREAM_KEYS:}"
+
+viewer:
+  session:
+    stale-close-interval-ms: "${VIEWER_STALE_CLOSE_INTERVAL_MS:60000}"
+    stale-timeout-ms: "${VIEWER_STALE_TIMEOUT_MS:180000}"
+    last-seen-write-interval-ms: "${VIEWER_LAST_SEEN_WRITE_INTERVAL_MS:60000}"

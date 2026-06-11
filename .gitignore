@@ -1,0 +1,43 @@
+# backend
+/backend/target/
+/backend/.mvn/wrapper/maven-wrapper.jar
+/backend/*.log
+
+# frontend
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+
+# common
+**/.DS_Store
+**/*.log
+**/.env
+meeting_sftp/
+
+/storage/
+
+# secrets & local config (never commit real values)
+**/application-local.yml
+*.env
+!*.env.example
+*.pem
+*.key
+*.jks
+*.p12
+
+# personal data (PII) & client documents — never commit
+*.csv
+*.pptx
+*.xlsx
+*.hwp
+ops-backup/
+
+# editor/runtime backups & artifacts
+**/*.bak
+**/*.bak.*
+**/*.out
+**/*.pid
+
+# PPT용 다이어그램 (저장소엔 미포함)
+image/meetingERD_*.png
+image/meetingSQ_*.png
